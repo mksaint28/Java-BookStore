@@ -52,16 +52,19 @@ public class ControllerServlet extends HttpServlet {
 			switch(action) {
 				case "/admin":
 					 showBookAdmin(request, response);
-           break;
-			  case "/new":
+					 break;
+			  	case "/new":
 					showNewForm(request, response);
-          break;
+					break;
 				case "/insert":
 					insertBook(request, response);
-          break;
-        default:
+					break;
+				case "/delete":
+					deleteBook(request, response);
+					break;
+				default:
 				   listBooks(request, response);
-           break;
+           		break;
 			}
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -114,6 +117,13 @@ public class ControllerServlet extends HttpServlet {
 		out.println("This is the doPost() method!");
 		doGet(request, response);
 
+	}
+
+	private void deleteBook(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int id = Integer.parseInt(request.getParameter("id"));
+		bookDAO.deleteBook(id);
+
+		response.sendRedirect("list");
 	}
 
 }
